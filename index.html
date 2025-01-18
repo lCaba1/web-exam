@@ -33,7 +33,7 @@
                 <!--<div class="collapse navbar-collapse" id="collapsable">-->
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-success" type="submit">Search</button>
                 </form>
 
                 <div class="navbar-nav">
@@ -98,14 +98,31 @@
 
                 </fieldset>
 
-                <button class="btn btn-primary w-100">Применить</button>
+                <button class="btn btn-secondary w-100">Применить</button>
             </form>
 
         </aside>
 
         <section class="col-7 col-md-9 container">
             <header>
-                <h2>Каталог</h2>
+                <nav class="navbar navbar-expand">
+                    <div class="container-fluid">
+                        <h2>Каталог</h2>
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                Сортировать по
+                            </button>
+
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">По убыванию рейтинга</a></li>
+                                <li><a class="dropdown-item" href="#">По возрастанию рейтинга</a></li>
+                                <li><a class="dropdown-item" href="#">По убыванию цены</a></li>
+                                <li><a class="dropdown-item" href="#">По возрастанию цены</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
             </header>
 
             <div id="catalog" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 gy-4">
