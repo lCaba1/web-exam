@@ -21,9 +21,7 @@
     <header>
         <nav class="navbar navbar-expand">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="./assets/logo.png" alt="logo" height="36">
-                </a>
+                <img class="navbar-brand" src="./assets/logo.png" alt="logo" height="48">
 
                 <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsable"
                     aria-expanded="false">
@@ -57,22 +55,10 @@
                         <input class="form-check-input" type="checkbox" value="" id="">
                         <label class="form-check-label" for="">Category</label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="">
-                        <label class="form-check-label" for="">Category</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="">
-                        <label class="form-check-label" for="">Category</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="">
-                        <label class="form-check-label" for="">Category</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="">
-                        <label class="form-check-label" for="">Category</label>
-                    </div>
+
+                    <!--<script src="./scripts/fill-categories.js"></script>-->
+
+
                 </fieldset>
 
                 <fieldset class="mb-4">
@@ -126,53 +112,47 @@
             </header>
 
             <div id="catalog" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 gy-4">
-                <script src="./scripts/fill-catalog.js"></script>
 
-                <!--<div class="col">
-                    <div class="ratio" style="--bs-aspect-ratio: 178%">
-                        <div class="card d-flex flex-column overflow-hidden">
+                <template id="card-template">
+                    <div class="col">
+                        <div class="ratio" style="--bs-aspect-ratio: 178%">
+                            <div class="card d-flex flex-column overflow-hidden">
 
-                            <img src="../food-construct/data/applejuice.jpg" alt="example"
-                                class="overflow-hidden h-100 w-100 card-img-top" style="flex-basis: auto;">
+                                <img src="." alt="" class="overflow-hidden h-100 w-100 card-img-top js_image_url"
+                                    style="flex-basis: auto;">
 
-                            <div class="card-body">
-                                <h6 class="card-title"  
-                                    style="overflow: hidden; text-overflow: ellipsis;
-                                            height: 2.4em; 
-                                            display: -webkit-box;
-                                            -webkit-line-clamp: 2;
-                                            line-clamp: 2;
-                                            -webkit-box-orient: vertical;">
-                                    Card title Card title Card title Card title
-                                    Card title Card title Card title Card title Card title Card title</h6>
+                                <div class="card-body">
+                                    <h6 class="card-title js_name" style="overflow: hidden; text-overflow: ellipsis;
+                                        height: 2.4em; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; 
+                                        -webkit-box-orient: vertical;"></h6>
 
-                                <div class="d-flex gap-3 card-text text-muted">
-                                    <span>5.0</span>
-                                    <span>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                        <i class="bi bi-star"></i>
-                                    </span>
+                                    <div class="card-text d-flex gap-3 text-muted">
+                                        <span class="js_rating"></span>
+                                        <span class="js_rating_stars">
+                                            <i></i>
+                                            <i></i>
+                                            <i></i>
+                                            <i></i>
+                                            <i></i>
+                                        </span>
+                                    </div>
+
+                                    <div class="card-text d-flex justify-content-between">
+                                        <span class="js_discount_price"></span>
+                                        <s class="text-danger js_actual_price"></s>
+                                        <strong class="text-danger js_percent_off"></strong>
+                                    </div>
+
+                                    <button class="btn btn-primary w-100 mt-1">Добавить</button>
                                 </div>
-
-                                <div class="card-text d-flex justify-content-between">
-                                    <span>2000&#8381;</span>
-                                    <s class="text-danger">3000&#8381;</s>
-                                    <strong class="text-danger">-30%</strong>
-                                </div>
-
-                                <button class="btn btn-primary w-100 mt-1">Добавить</button>
-
                             </div>
-
                         </div>
                     </div>
-                </div>-->
+                </template>
+
+
+                <script src="./scripts/fill-catalog.js"></script>
             </div>
-
-
         </section>
     </main>
 
