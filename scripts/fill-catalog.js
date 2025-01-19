@@ -13,31 +13,32 @@ function fillGoodsCard(goods) {
             style: 'flex-basis: auto'
         })
     )
-    current_element.appendChild(
+    current_element = current_element.appendChild(
         Object.assign(document.createElement('div'), {
             className: 'card-body',
         })
     );
-    current_element = current_element.lastElementChild;
+
     current_element.appendChild(
         Object.assign(document.createElement('h6'), {
-            className: 'card-title text-truncate',
-            textContent: goods.name
+            className: 'card-title', // text-truncate
+            textContent: goods.name,
+            style: 'overflow: hidden; text-overflow: ellipsis; height: 2.4em; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;'
         })
     );
-    current_element.appendChild(
+    current_element = current_element.appendChild(
         Object.assign(document.createElement('div'), {
             className: 'd-flex gap-3 card-text text-muted'
         })
     );
-    current_element = current_element.lastElementChild;
+
     current_element.appendChild(
         Object.assign(document.createElement('span'), {
             textContent: goods.rating.toFixed(1)
         })
     );
-    current_element.appendChild(document.createElement('span'));
-    current_element = current_element.lastElementChild;
+    current_element = current_element.appendChild(document.createElement('span'));
+
     for (let i = 1; i <= 5; i++) {
         if (i <= goods.rating) {
             current_element.appendChild(
@@ -59,13 +60,13 @@ function fillGoodsCard(goods) {
             );
         }
     }
-    current_element = current_element.parentElement.parentElement;
-    current_element.appendChild(
+
+    current_element = current_element.parentElement.parentElement.appendChild(
         Object.assign(document.createElement('div'), {
             className: 'card-text d-flex justify-content-between'
         })
     )
-    current_element = current_element.lastElementChild;
+
     current_element.appendChild(
         Object.assign(document.createElement('span'), {
             textContent: goods.actual_price + '\u20BD'
@@ -85,8 +86,8 @@ function fillGoodsCard(goods) {
             })
         )
     }
-    current_element = current_element.parentElement;
-    current_element.appendChild(
+
+    current_element.parentElement.appendChild(
         Object.assign(document.createElement('button'), {
             className: 'btn btn-primary w-100 mt-1',
             textContent: 'Добавить'
@@ -107,7 +108,7 @@ function createCardsGrid(data) {
         current_element.appendChild(
             Object.assign(document.createElement('div'), {
                 className: 'ratio',
-                style: '--bs-aspect-ratio: 165%'
+                style: '--bs-aspect-ratio: 178%'
             })
         );
         current_element = current_element.lastElementChild;
