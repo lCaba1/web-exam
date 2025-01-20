@@ -16,9 +16,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    <script src="./scripts/fetch.js" defer></script>
-    <script src="./scripts/catalog.js" defer></script>
-    <script src="./scripts/sort.js" defer></script>
+    <script src="./scripts/controller.js" type="module"></script>
 
 </head>
 
@@ -51,15 +49,18 @@
     <main class="row">
         <aside class="col-5 col-md-3">
             <form action="https://httpbin.org/post" method="post">
-                <fieldset class="mb-3">
+                <fieldset class="mb-3" id="categories">
                     <legend>
                         <h4>Категории</h4>
                     </legend>
 
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="">
-                        <label class="form-check-label" for="">Category</label>
-                    </div>
+                    <template id="categoty-template">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label js_category" for=""></label>
+                        </div>
+                    </template>
+
                 </fieldset>
 
                 <fieldset class="mb-4">
@@ -102,14 +103,12 @@
                             </button>
 
                             <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" onclick="ratingDescending()">По убыванию
-                                        рейтинга</button></li>
-                                <li><button class="dropdown-item" onclick="ratingAscending()">По возрастанию
-                                        рейтинга</button></li>
-                                <li><button class="dropdown-item" onclick="priceDescending()">По убыванию цены</button>
+                                <li><button class="dropdown-item js_rating_descending">По убыванию рейтинга</button>
                                 </li>
-                                <li><button class="dropdown-item" onclick="priceAscending()">По возрастанию
-                                        цены</button></li>
+                                <li><button class="dropdown-item js_rating_ascending">По возрастанию рейтинга</button>
+                                </li>
+                                <li><button class="dropdown-item js_price_descending">По убыванию цены</button></li>
+                                <li><button class="dropdown-item js_price_ascending">По возрастанию цены</button></li>
                             </ul>
                         </div>
                     </div>

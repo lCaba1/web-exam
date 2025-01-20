@@ -24,16 +24,8 @@ function createCard(item) {
     document.getElementById('catalog').appendChild(card);
 }
 
-async function display() {
-    await fetch_promise;
-    //console.log(fetch_promise);
-    //console.log(catalog);
-    document.getElementById('catalog').replaceChildren();
-
-    catalog.forEach(item => {
+export function display(data) {
+    data.forEach(item => {
         createCard(item);
     });
 }
-
-display();
-

@@ -1,36 +1,53 @@
-async function ratingDescending() {
-    await fetch_promise;
+let catalog;
+
+export function setCatalog(data) {
+    catalog = data;
+}
+
+export function getCatalog() {
+    return catalog;
+}
+
+function ratingDescending() {
+    document.getElementById('catalog').replaceChildren();
+
     catalog.sort((l, r) => r.rating - l.rating);
-    display();
+    //console.log(catalog);
 }
 
-async function ratingAscending() {
-    await fetch_promise;
+function ratingAscending() {
+    document.getElementById('catalog').replaceChildren();
+
     catalog.sort((l, r) => l.rating - r.rating);
-    display();
 }
 
-async function priceDescending() {
-    await fetch_promise;
+function priceDescending() {
+    document.getElementById('catalog').replaceChildren();
+
     catalog.sort((l, r) =>
         l.discount_price && r.discount_price ? r.discount_price - l.discount_price :
             l.discount_price ? r.actual_price - l.discount_price :
                 r.discount_price ? r.discount_price - l.actual_price :
                     r.actual_price - l.actual_price
     );
-    display();
 }
 
-async function priceAscending() {
-    await fetch_promise;
+function priceAscending() {
+    document.getElementById('catalog').replaceChildren();
+
     catalog.sort((l, r) =>
         l.discount_price && r.discount_price ? l.discount_price - r.discount_price :
             l.discount_price ? l.discount_price - r.actual_price :
                 r.discount_price ? l.actual_price - r.discount_price :
                     l.actual_price - r.actual_price
     );
-    display();
+}
+
+export const sortCatalog = {
+    ratingDescending,
+    ratingAscending,
+    priceDescending,
+    priceAscending
 }
 
 
-// separate
