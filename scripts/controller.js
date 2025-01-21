@@ -1,6 +1,6 @@
 import { fetchCatalog } from "./api.js";
-import { displayCatalog, cleanCatalog, displayCategories } from "./view.js";
-import { getCatalog, getCategories, min_price, setCatalog, sortCatalog } from "./model.js";
+import { displayCatalog, cleanCatalog, displayCategories, displayPriceRange } from "./view.js";
+import { getCatalog, getCategories, max_price, min_price, setCatalog, sortCatalog } from "./model.js";
 
 function callback() {
     observer.disconnect();
@@ -19,11 +19,9 @@ function clearnsort(type) {
     setCatalog(await fetchCatalog());
 
     displayCategories(getCategories());
+    displayPriceRange(min_price(), max_price())
 
     callback();
-
-    //console.log(min_price().actual_price);
-    //console.log(getCatalog());
 
     document.querySelector('button.js_rating_descending').addEventListener('click', () => clearnsort('ratingDescending'));
     document.querySelector('button.js_rating_ascending').addEventListener('click', () => clearnsort('ratingAscending'));
