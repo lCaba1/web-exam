@@ -24,8 +24,21 @@ function createCard(item) {
     document.getElementById('catalog').appendChild(card);
 }
 
-export function display(data) {
+export function displayCatalog(data) {
     data.forEach(item => {
         createCard(item);
     });
+}
+
+export function cleanCatalog() { document.getElementById('catalog').replaceChildren(); }
+
+export function displayCategories(data) {
+    for (let i = 0; i < data.length; i++) {
+        const category = document.getElementById('categoty-template').content.cloneNode(true);
+        category.querySelector('label.js_category').textContent = data[i];
+        document.getElementById('categories').appendChild(category);
+    }
+    
+    // categoty-template    ok
+    // category-template    ne ok
 }
