@@ -6,28 +6,24 @@ import {
 } from "./view.js";
 
 import {
-    setCatalogCatigories, getCatalog, getCategories, max_price, min_price,
-    ratingAscending, ratingDescending, priceAscending, priceDescending, filter
+    setCatalog, getCatalog, getCategories,
+    max_price, min_price,
+    filter, search, sort
 } from "./model.js";
 
 (async () => {
-    setCatalogCatigories(await fetchCatalog());
+    setCatalog(await fetchCatalog());
 
     displayCategories(getCategories());
     displayPriceRange(min_price(), max_price())
     displayCatalog(getCatalog());
 
-    document.querySelector('button.js_rating_descending').addEventListener('click',
-        () => displayReplace(ratingDescending()));
-    document.querySelector('button.js_rating_ascending').addEventListener('click',
-        () => displayReplace(ratingAscending()));
-    document.querySelector('button.js_price_descending').addEventListener('click',
-        () => displayReplace(priceDescending()));
-    document.querySelector('button.js_price_ascending').addEventListener('click',
-        () => displayReplace(priceAscending()));
-
     document.querySelector('#js_filter').addEventListener('submit',
         function (event) { displayHide(filter(event)) });
+    document.querySelector('#js_search').addEventListener('submit',
+        function (event) { displayHide(search(event)) });
+    document.querySelector('#js_sort').addEventListener('change', () =>
+        displayReplace(sort[document.querySelector('select.js_sort_select').value]()));
 })();
 
 

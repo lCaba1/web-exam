@@ -1,15 +1,22 @@
 let catalog;
 let categories = new Set();
 
-export function setCatalogCatigories(data) {
-    catalog = data;
 
+
+export function setCatalog(data) {
+    catalog = data;
+    setCategories();
+}
+
+function setCategories() {
     catalog.forEach(item => {
         categories.add(item.main_category);
         //categories.add(item.sub_category);
     });
     categories = [...categories].sort();
 }
+
+
 
 export function getCatalog() {
     return catalog;
@@ -18,6 +25,8 @@ export function getCatalog() {
 export function getCategories() {
     return categories;
 }
+
+
 
 export function min_price() {
     const min_item = [...catalog].reduce((min, current) =>
@@ -35,33 +44,15 @@ export function max_price() {
     return max_item.discount_price ?? max_item.actual_price;
 }
 
-export function ratingDescending() {
-    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
-        r.querySelector('span.js_rating').textContent - l.querySelector('span.js_rating').textContent);
-}
 
-export function ratingAscending() {
-    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
-        l.querySelector('span.js_rating').textContent - r.querySelector('span.js_rating').textContent);
-}
-
-export function priceDescending() {
-    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
-        r.querySelector('span.js_discount_price').textContent - l.querySelector('span.js_discount_price').textContent);
-}
-
-export function priceAscending() {
-    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
-        l.querySelector('span.js_discount_price').textContent - r.querySelector('span.js_discount_price').textContent);
-}
 
 export function filter(event) {
     event.preventDefault();
 
-    const types = new FormData(document.getElementById('js_filter')).getAll('category');
-    const min = new FormData(document.getElementById('js_filter')).get('from');
-    const max = new FormData(document.getElementById('js_filter')).get('to');
-    const discount = new FormData(document.getElementById('js_filter')).get('discount');
+    const types = new FormData(document.querySelector('#js_filter')).getAll('category');
+    const min = document.querySelector('input.js_min').value;
+    const max = document.querySelector('input.js_max').value;
+    const discount = new FormData(document.querySelector('#js_filter')).get('discount');
 
     const filtered = [];
 
@@ -76,4 +67,49 @@ export function filter(event) {
     });
 
     return filtered;
+}
+
+
+
+export function search(event) {
+    event.preventDefault();
+    const substr = document.querySelector('input.js_search_input').value.toLowerCase();
+    const filtered = [];
+
+    Array.from(document.querySelector('#catalog').children).forEach(item => {
+        if (!item.querySelector('h6.js_name').textContent.toLowerCase().includes(substr)) {
+            filtered.push(item);
+        }
+    });
+
+    return filtered;
+}
+
+
+
+export const sort = {
+    ratingDescending,
+    ratingAscending,
+    priceDescending,
+    priceAscending
+}
+
+function ratingDescending() {
+    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
+        r.querySelector('span.js_rating').textContent - l.querySelector('span.js_rating').textContent);
+}
+
+function ratingAscending() {
+    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
+        l.querySelector('span.js_rating').textContent - r.querySelector('span.js_rating').textContent);
+}
+
+function priceDescending() {
+    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
+        r.querySelector('span.js_discount_price').textContent - l.querySelector('span.js_discount_price').textContent);
+}
+
+function priceAscending() {
+    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
+        l.querySelector('span.js_discount_price').textContent - r.querySelector('span.js_discount_price').textContent);
 }

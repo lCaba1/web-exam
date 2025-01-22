@@ -32,8 +32,9 @@
                 </button>-->
 
                 <!--<div class="collapse navbar-collapse" id="collapsable">-->
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Введите запрос">
+                <form class="d-flex" id="js_search">
+                    <input class="form-control me-2 js_search_input" type="search" placeholder="Введите запрос"
+                        name="search">
                     <button class="btn btn-success" type="submit">Найти</button>
                 </form>
 
@@ -81,7 +82,7 @@
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="discount" id="discount">
+                        <input class="form-check-input js_discount" type="checkbox" name="discount" id="discount">
                         <label class="form-check-label" for="discount">Только товары со скидкой</label>
                     </div>
 
@@ -98,20 +99,15 @@
                     <div class="container-fluid">
                         <h2>Каталог</h2>
 
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                Сортировать по
-                            </button>
-
-                            <ul class="dropdown-menu">
-                                <li><button class="dropdown-item js_rating_descending">По убыванию рейтинга</button>
-                                </li>
-                                <li><button class="dropdown-item js_rating_ascending">По возрастанию рейтинга</button>
-                                </li>
-                                <li><button class="dropdown-item js_price_descending">По убыванию цены</button></li>
-                                <li><button class="dropdown-item js_price_ascending">По возрастанию цены</button></li>
-                            </ul>
-                        </div>
+                        <form id="js_sort">
+                            <select class="form-select js_sort_select btn btn-secondary" name="type">
+                                <option selected hidden>Сортировать по</option>
+                                <option value="ratingDescending">По убыванию рейтинга</option>
+                                <option value="ratingAscending">По возрастанию рейтинга</option>
+                                <option value="priceDescending">По убыванию цены</option>
+                                <option value="priceAscending">По возрастанию цены</option>
+                            </select>
+                        </form>
                     </div>
                 </nav>
             </header>
