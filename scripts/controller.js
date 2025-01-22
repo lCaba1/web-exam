@@ -1,33 +1,35 @@
 import { fetchCatalog } from "./api.js";
-import { displayCatalog, cleanCatalog, displayCategories, displayPriceRange } from "./view.js";
-import { getCatalog, getCategories, max_price, min_price, setCatalog, sortCatalog } from "./model.js";
 
-function callback() {
-    observer.disconnect();
-    displayCatalog(getCatalog());
-    observer.observe(document.getElementById('catalog'), { childList: true });
-}
+import {
+    displayCatalog, displayCategories, displayPriceRange,
+    displayReplace, displayHide
+} from "./view.js";
 
-const observer = new MutationObserver(callback);
-
-function clearnsort(type) {
-    sortCatalog[type]();
-    cleanCatalog();
-}
+import {
+    setCatalogCatigories, getCatalog, getCategories, max_price, min_price,
+    ratingAscending, ratingDescending, priceAscending, priceDescending, filter
+} from "./model.js";
 
 (async () => {
-    setCatalog(await fetchCatalog());
+    setCatalogCatigories(await fetchCatalog());
 
     displayCategories(getCategories());
     displayPriceRange(min_price(), max_price())
+    displayCatalog(getCatalog());
 
-    callback();
+    document.querySelector('button.js_rating_descending').addEventListener('click',
+        () => displayReplace(ratingDescending()));
+    document.querySelector('button.js_rating_ascending').addEventListener('click',
+        () => displayReplace(ratingAscending()));
+    document.querySelector('button.js_price_descending').addEventListener('click',
+        () => displayReplace(priceDescending()));
+    document.querySelector('button.js_price_ascending').addEventListener('click',
+        () => displayReplace(priceAscending()));
 
-    document.querySelector('button.js_rating_descending').addEventListener('click', () => clearnsort('ratingDescending'));
-    document.querySelector('button.js_rating_ascending').addEventListener('click', () => clearnsort('ratingAscending'));
-    document.querySelector('button.js_price_descending').addEventListener('click', () => clearnsort('priceDescending'));
-    document.querySelector('button.js_price_ascending').addEventListener('click', () => clearnsort('priceAscending'));
+    document.querySelector('#js_filter').addEventListener('submit',
+        function (event) { displayHide(filter(event)) });
 })();
 
 
-
+// отображать вид сортировки в placeholder выпадающего списка
+// сделать кнопку reset для фильтров
