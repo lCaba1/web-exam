@@ -1,15 +1,15 @@
 export function displayCatalog(data) {
-    data.forEach(item => {
+    data.goods.forEach(item => {
         const card = document.querySelector('#card-template').content.cloneNode(true);
 
-        card.querySelector('.js_category').setAttribute('data-main_category', item.main_category);
-        card.querySelector('.js_category').setAttribute('data-sub_category', item.sub_category);
+        card.querySelector('.js_meta').setAttribute('data-main_category', item.main_category);
+        card.querySelector('.js_meta').setAttribute('data-id', item.id);
 
         card.querySelector('.js_image_url').src = item.image_url;
         card.querySelector('.js_name').textContent = item.name;
         card.querySelector('.js_rating').textContent = item.rating;
 
-        const stars = card.querySelector('.js_rating_stars').querySelectorAll('i');
+        const stars = card.querySelector('.js_rating_stars').querySelectorAll('.js_star');
         for (let i = 0; i < 5; i++) {
             if (i <= item.rating - 1)
                 stars[i].classList.add('bi', 'bi-star-fill', 'text-warning');
@@ -28,25 +28,65 @@ export function displayCatalog(data) {
 
         document.querySelector('#catalog').appendChild(card);
     });
+
+    if (data._pagination.current_page * data._pagination.per_page >= data._pagination.total_count) {
+        document.querySelector('#download_button').parentElement.setAttribute('hidden', true);
+    } else {
+        document.querySelector('#download_button').parentElement.removeAttribute('hidden');
+    }
+
+    return Array.from(document.querySelector('#catalog').children);
+}
+
+export function cleanCatalog() {
+    document.querySelector('#catalog').replaceChildren();
+}
+
+let notifications_timeout;
+
+export function displayNotification(message, color) {
+    const notifications = document.querySelector('#notifications')
+    const alert = document.querySelector('#alert-template').content.cloneNode(true);
+
+    alert.querySelector('.js_alert_color').classList.add(color);
+    alert.querySelector('.js_alert_message').textContent = message;
+
+    if (notifications.children.length) {
+        notifications.firstElementChild.remove();
+    }
+
+    notifications.appendChild(alert);
+    setTimeout(() => notifications.querySelector('.js_alert_color').classList.add('show'), 100);
+
+    clearTimeout(notifications_timeout);
+    notifications_timeout = setTimeout(() => {
+        if (notifications.children.length) notifications.querySelector('.js_close_alert').click();
+    }, 10000);
 }
 
 export function displayCategories(data) {
-    for (let i = 0; i < data.length; i++) {
+    data.forEach(item => {
         const category = document.querySelector('#categoty-template').content.cloneNode(true);
-        category.querySelector('label.js_category_label').textContent = data[i];
-        category.querySelector('label.js_category_label').setAttribute('for', 'category' + i);
-        category.querySelector('input.js_category_input').value = data[i];
-        category.querySelector('input.js_category_input').id = 'category' + i;
+        category.querySelector('.js_category_label').textContent = item;
+        category.querySelector('.js_category_label').setAttribute('for', 'category' +
+            document.querySelector('#categories').children.length);
+        category.querySelector('.js_category_input').value = item;
+        category.querySelector('.js_category_input').id = 'category' +
+            document.querySelector('#categories').children.length;
         document.querySelector('#categories').appendChild(category);
-    }
+    });
 }
 
-export function displayPriceRange(min, max) {
-    document.querySelector('input.js_min').placeholder = min;
-    document.querySelector('input.js_max').placeholder = max;
+export function cleanCategories() {
+    document.querySelector('#categories').replaceChildren();
 }
 
-export function displayHide(data) {
+export function displayPriceRange(range) {
+    document.querySelector('#min_price').placeholder = range[0];
+    document.querySelector('#max_price').placeholder = range[1];
+}
+
+export function hideFiltered(data) {
     Array.from(document.querySelector('#catalog').children).forEach(item => {
         item.hidden = false
     });
@@ -54,10 +94,4 @@ export function displayHide(data) {
         item.hidden = true;
     });
 }
-
-export function displayReplace(data) {
-    document.querySelector('#catalog').replaceChildren(...data);
-}
-
-
 

@@ -1,66 +1,86 @@
-let catalog;
-let categories = new Set();
+const api_url = 'https://edu.std-900.ist.mospolytech.ru';
+const catalog_path = '/exam-2024-1/api/goods';
+const auth = '?api_key=12fb475f-4ad1-4629-8a9b-1dbfd9e253dd';
+const page_param = '&page=';
+const per_page_param = '&per_page=';
+const sort_order_param = '&sort_order=';
 
+let current_page;
 
+export async function fetchCatalog() {
+    if (!document.querySelector('#catalog').children.length) current_page = 1;
 
-export function setCatalog(data) {
-    catalog = data;
-    setCategories();
+    let request = api_url + catalog_path + auth;
+    request += page_param + current_page;
+    request += sort_order_param + document.querySelector('#sort_select').value;;
+
+    if (current_page == 1) {
+        current_categories.clear();
+        min = 1000000;
+        max = 0;
+    }
+    current_page++;
+
+    return await (await fetch(request, { method: 'GET' })).json();;
 }
 
-function setCategories() {
-    catalog.forEach(item => {
-        categories.add(item.main_category);
-        //categories.add(item.sub_category);
+export function addToCart(item) {
+    if (localStorage.getItem(item.dataset.id)) return false;
+
+    localStorage.setItem(item.dataset.id, item.querySelector('.js_name').textContent);
+    return true;
+}
+
+const current_categories = new Set();
+
+export function findCategories(response) {
+    const new_categories = new Set();
+
+    response.goods.forEach(item => {
+        if (current_categories.size != current_categories.add(item.main_category).size)
+            new_categories.add(item.main_category);
     });
-    categories = [...categories].sort();
+
+    return [...new_categories].sort();
 }
 
+let min;
+let max;
 
+export function minMaxPrice(response) {
+    response.goods.forEach(item => {
+        const price = item.discount_price ?? item.actual_price;
+        if (price < min) min = price;
+        if (price > max) max = price;
+    });
 
-export function getCatalog() {
-    return catalog;
+    return [min, max];
 }
 
-export function getCategories() {
-    return categories;
-}
+let formState = {
+    'types': [],
+    'min': '',
+    'max': '',
+    'discount': null
+};
 
-
-
-export function min_price() {
-    const min_item = [...catalog].reduce((min, current) =>
-        (current.discount_price ?? current.actual_price) < (min.discount_price ?? min.actual_price) ?
-            current : min
-    );
-    return min_item.discount_price ?? min_item.actual_price;
-}
-
-export function max_price() {
-    const max_item = [...catalog].reduce((max, current) =>
-        (current.discount_price ?? current.actual_price) > (max.discount_price ?? max.actual_price) ?
-            current : max
-    );
-    return max_item.discount_price ?? max_item.actual_price;
-}
-
-
-
-export function filter(event) {
+export function submitFilter(event) {
     event.preventDefault();
 
-    const types = new FormData(document.querySelector('#js_filter')).getAll('category');
-    const min = document.querySelector('input.js_min').value;
-    const max = document.querySelector('input.js_max').value;
-    const discount = new FormData(document.querySelector('#js_filter')).get('discount');
+    formState.types = new FormData(document.querySelector('#filter')).getAll('category');
+    formState.min = document.querySelector('#min_price').value;
+    formState.max = document.querySelector('#max_price').value;
+    formState.discount = new FormData(document.querySelector('#filter')).get('discount');
+}
 
+export function filter() {
     const filtered = [];
 
     Array.from(document.querySelector('#catalog').children).forEach(item => {
-        if (!types.includes(item.dataset.main_category) && types.length != 0 ||
-            max && Number(item.querySelector('span.js_discount_price').textContent) > Number(max) ||
-            min && Number(item.querySelector('span.js_discount_price').textContent) < Number(min) ||
-            !item.querySelector('s.js_actual_price').textContent && discount == 'on'
+        if (!formState.types.includes(item.dataset.main_category) && formState.types.length != 0 ||
+            formState.max && Number(item.querySelector('.js_discount_price').textContent) > Number(formState.max) ||
+            formState.min && Number(item.querySelector('.js_discount_price').textContent) < Number(formState.min) ||
+            !item.querySelector('.js_actual_price').textContent && formState.discount == 'on'
         ) {
             filtered.push(item);
         }
@@ -71,45 +91,20 @@ export function filter(event) {
 
 
 
-export function search(event) {
+
+
+
+
+/*export function search(event) {
     event.preventDefault();
-    const substr = document.querySelector('input.js_search_input').value.toLowerCase();
+    const substr = document.querySelector('#js_search_input').value.toLowerCase();
     const filtered = [];
 
     Array.from(document.querySelector('#catalog').children).forEach(item => {
-        if (!item.querySelector('h6.js_name').textContent.toLowerCase().includes(substr)) {
+        if (!item.querySelector('.js_name').textContent.toLowerCase().includes(substr)) {
             filtered.push(item);
         }
     });
 
     return filtered;
-}
-
-
-
-export const sort = {
-    ratingDescending,
-    ratingAscending,
-    priceDescending,
-    priceAscending
-}
-
-function ratingDescending() {
-    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
-        r.querySelector('span.js_rating').textContent - l.querySelector('span.js_rating').textContent);
-}
-
-function ratingAscending() {
-    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
-        l.querySelector('span.js_rating').textContent - r.querySelector('span.js_rating').textContent);
-}
-
-function priceDescending() {
-    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
-        r.querySelector('span.js_discount_price').textContent - l.querySelector('span.js_discount_price').textContent);
-}
-
-function priceAscending() {
-    return Array.from(document.querySelector('#catalog').children).sort((l, r) =>
-        l.querySelector('span.js_discount_price').textContent - r.querySelector('span.js_discount_price').textContent);
-}
+}*/
