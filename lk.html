@@ -16,10 +16,10 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    <script src="./scripts/main-controller.js" type="module"></script>
+    <script src="." type="module"></script>
 </head>
 
-<body class="container-md min-vh-100 d-flex flex-column">
+<body class="container-md min-vh-100 d-flex flex-column" style="min-width: 390px;">
     <header>
         <nav class="navbar navbar-expand mb-2 mt-2">
             <div class="container-fluid d-flex gap-2 flex-wrap flex-sm-nowrap">
@@ -33,7 +33,7 @@
         </nav>
     </header>
 
-    <main class="container-md">
+    <main class="container-md flex-grow-1">
         <section>
             <header>
                 <h2>Заказы</h2>
@@ -43,7 +43,7 @@
         </section>
     </main>
 
-    <footer class="container-fluid mt-auto pt-3 mb-2">
+    <footer class="container-fluid pt-4 mb-3">
         <p class="text-center text-sm-start">&#169; 2025 MOSCOW POLYTECH STORE</p>
     </footer>
 </body>

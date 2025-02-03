@@ -1,5 +1,9 @@
 export function displayCatalog(data) {
-    data.goods.forEach(item => {
+    const target = document.querySelector('#catalog') ?? document.querySelector('#cart');
+    let goods = data;
+    if (target.id == 'catalog') goods = data.goods;
+
+    goods.forEach(item => {
         const card = document.querySelector('#card-template').content.cloneNode(true);
 
         card.querySelector('.js_meta').setAttribute('data-main_category', item.main_category);
@@ -19,27 +23,38 @@ export function displayCatalog(data) {
                 stars[i].classList.add('bi', 'bi-star');
         }
 
-        card.querySelector('.js_discount_price').textContent = item.discount_price ?? item.actual_price;
+        card.querySelector('.js_discount_price').textContent = (item.discount_price ?? item.actual_price);
         if (item.discount_price) {
+            card.querySelector('.js_actual_price').parentElement.removeAttribute('hidden');
             card.querySelector('.js_actual_price').textContent = item.actual_price;
             card.querySelector('.js_percent_off').textContent =
-                '-' + ((1 - item.discount_price / item.actual_price) * 100).toPrecision(2) + '%';
+                '-' + ((1 - item.discount_price / item.actual_price) * 100).toFixed(0) + '%';
         }
 
-        document.querySelector('#catalog').appendChild(card);
+        target.appendChild(card);
     });
 
-    if (data._pagination.current_page * data._pagination.per_page >= data._pagination.total_count) {
-        document.querySelector('#download_button').parentElement.setAttribute('hidden', true);
-    } else {
-        document.querySelector('#download_button').parentElement.removeAttribute('hidden');
+    if (target.id == 'catalog') {
+        if (data._pagination.current_page * data._pagination.per_page >= data._pagination.total_count) {
+            document.querySelector('#download_button').parentElement.setAttribute('hidden', true);
+        } else {
+            document.querySelector('#download_button').parentElement.removeAttribute('hidden');
+        }
     }
 
-    return Array.from(document.querySelector('#catalog').children);
+    return Array.from(target.children);
 }
 
-export function cleanCatalog() {
-    document.querySelector('#catalog').replaceChildren();
+export function cleanCatalog(item) {
+    const target = document.querySelector('#catalog') ?? document.querySelector('#cart');
+
+    if (target.id == 'catalog') {
+        document.querySelector('#catalog').replaceChildren();
+    }
+
+    if (target.id == 'cart') {
+        document.querySelector('#cart').removeChild(item);
+    }
 }
 
 let notifications_timeout;
@@ -95,3 +110,41 @@ export function hideFiltered(data) {
     });
 }
 
+export function emptyCartBanner() {
+    if (document.querySelector('#cart').children.length)
+        document.querySelector('#empty_cart_banner').setAttribute('hidden', true);
+    else
+        document.querySelector('#empty_cart_banner').removeAttribute('hidden');
+}
+
+export function displayTotalPrice(price) {
+    document.querySelector('#total_price').textContent = price;
+}
+
+export function displayDeliveryPrice(price) {
+    document.querySelector('#delivery_price').textContent = price;
+}
+
+/*  устанавливает начальные значения для полей 'дата доставки' 
+    и 'временной интервал доставки' формы в cart.html
+*/
+export function setTimeDate() {
+    const now = new Date();
+
+    const time = now.getHours();
+    let value;
+    if (time < 12) value = '08:00-12:00';
+    else if (time >= 12 && time < 14) value = '12:00-14:00';
+    else if (time >= 14 && time < 18) value = '14:00-18:00';
+    else if (time >= 18 && time < 22) value = '18:00-22:00';
+    else value = '08:00-12:00';
+    document.querySelector(`#time option[value='${value}']`).setAttribute('selected', true);
+
+    if (time >= 22) now.setDate(now.getDate() + 1);
+    const date = now.toISOString().split('T')[0];
+    document.querySelector('#date').setAttribute('value', date);
+    document.querySelector('#date').setAttribute('min', date);
+
+    document.querySelector('#time').dispatchEvent(new Event('change'));
+    document.querySelector('#date').dispatchEvent(new Event('change'));
+}
