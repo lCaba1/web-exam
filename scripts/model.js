@@ -166,6 +166,14 @@ export function makeOrder(event) {
     })*/
 }
 
+export async function getOrders() {
+    const request = api_url + order_path + auth;
+    return await (await fetch(request, { method: 'GET' })).json();
+}
+
+
+
+
 
 
 
