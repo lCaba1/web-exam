@@ -23,9 +23,7 @@ async function updateCatalog() {
     displayCategories(findCategories(response));
     displayPriceRange(minMaxPrice(response));
 
-    displayCatalog(response);
-
-    Array.from(document.querySelector('#catalog').children).forEach(card => {
+    displayCatalog(response).forEach(card => {
         card.querySelector('.js_add_button').addEventListener('click', () => {
             try {
                 addToCart(card);
@@ -35,7 +33,6 @@ async function updateCatalog() {
             }
         });
     });
-
 }
 
 document.querySelector('#download_button').addEventListener('click', async () => {
@@ -57,6 +54,16 @@ document.querySelector('#filter').addEventListener('submit', (event) => {
 });
 
 document.querySelector('#download_button').click();
+
+window.onload = function () {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('order')) {
+        displayNotification('Заказ успешно оформлен', 'alert-success');
+        const new_url = new URL(window.location);
+        new_url.searchParams.delete('order');
+        history.replaceState(null, "", new_url);
+    }
+}
 
 /*(async () => {
     document.querySelector('#js_search').addEventListener('submit',

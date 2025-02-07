@@ -35,6 +35,8 @@ export function displayCatalog(data) {
     } else {
         document.querySelector('#download_button').parentElement.removeAttribute('hidden');
     }
+
+    return Array.from(document.querySelector('#catalog').children);
 }
 
 export function displayCategories(data) {
@@ -75,6 +77,8 @@ export function displayNotification(message, color) {
     notifications_timeout = setTimeout(() => {
         if (notifications.children.length) notifications.querySelector('.js_close_alert').click();
     }, 10000);
+
+    if (color == 'alert-danger') document.querySelector('#notifications').scrollIntoView();
 }
 
 export function hideFiltered(data) {

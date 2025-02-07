@@ -35,12 +35,12 @@ export function deliveryPrice() {
     return delivery_price;
 }
 
-export function removeFromCart(item) {
-    localStorage.removeItem(item.dataset.id);
+export function removeFromCart(item = null) {
+    if (item) localStorage.removeItem(item.dataset.id);
+    else localStorage.clear();
 }
 
-//
-export function makeOrder(event) {
+export async function postOrder(event) {
     event.preventDefault();
     const form = new FormData(event.target);
 
@@ -58,19 +58,20 @@ export function makeOrder(event) {
     else if (valid.getHours() >= 12) valid.setHours(12);
     else valid.setHours(8);
 
-    //console.log(date, valid.toISOString().split('T')[0], time, valid.getHours());
-
     if (date == valid.toISOString().split('T')[0] && time < valid.getHours()) throw new Error('time problem');
     if (date < valid.toISOString().split('T')[0]) throw new Error('date problem');
 
-    //console.log(Object.fromEntries(form.entries()));
+    if (form.get('subscribe')) form.set('subscribe', 1);
+    else form.set('subscribe', 0);
 
-    return true;
+    const data = Object.fromEntries(form.entries());
+    data.good_ids = Object.keys(localStorage).map(Number);
 
-    /*fetch(api_url + order_path + auth, {
+    return await (await fetch(api_url + order_path + auth, {
         method: "POST",
-        body: form
-    })*/
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })).json();
 }
 
 

@@ -6,3 +6,8 @@ export async function getOrders() {
     const request = api_url + order_path + auth;
     return await (await fetch(request, { method: 'GET' })).json();
 }
+
+export async function deleteOrder(id) {
+    const request = api_url + order_path + '/' + id + auth;
+    return await (await fetch(request, { method: 'DELETE' })).json();
+}

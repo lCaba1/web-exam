@@ -43,11 +43,15 @@ export function cleanCart(item) {
     document.querySelector('#cart').removeChild(item);
 }
 
-export function emptyCartBanner() {
-    if (document.querySelector('#cart').children.length)
+export function emptyCart() {
+    if (document.querySelector('#cart').children.length) {
         document.querySelector('#empty_cart_banner').setAttribute('hidden', true);
-    else
+        document.querySelector('#submit_order_button').removeAttribute('disabled');
+    }
+    else {
         document.querySelector('#empty_cart_banner').removeAttribute('hidden');
+        document.querySelector('#submit_order_button').setAttribute('disabled', true);
+    }
 }
 
 export function setTimeDate() {
@@ -62,7 +66,7 @@ export function setTimeDate() {
     else value = '08:00-12:00';
     document.querySelector(`#time option[value='${value}']`).setAttribute('selected', true);
 
-    if (time >= 22) now.setDate(now.getDate() + 1);
+    if (time >= 22 || time < 3) now.setDate(now.getDate() + 1);
     const date = now.toISOString().split('T')[0];
     document.querySelector('#date').setAttribute('value', date);
     document.querySelector('#date').setAttribute('min', date);
@@ -91,15 +95,7 @@ export function displayNotification(message, color) {
     notifications_timeout = setTimeout(() => {
         if (notifications.children.length) notifications.querySelector('.js_close_alert').click();
     }, 10000);
+
+    if (color == 'alert-danger') document.querySelector('#notifications').scrollIntoView();
 }
-
-
-
-
-
-
-
-
-
-
 

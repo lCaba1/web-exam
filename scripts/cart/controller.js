@@ -1,13 +1,13 @@
 import {
     deliveryPrice,
     getCart,
-    makeOrder,
+    postOrder,
     removeFromCart,
     totalPrice,
 } from "./model.js";
 
 import {
-    emptyCartBanner,
+    emptyCart,
     displayNotification,
     displayTotalPrice,
     setTimeDate,
@@ -25,7 +25,7 @@ import {
             removeFromCart(card);
             cleanCart(card);
             displayNotification('Товар успешно удален из корзины', 'alert-success');
-            emptyCartBanner();
+            emptyCart();
         });
     });
 
@@ -37,12 +37,18 @@ import {
         displayDeliveryPrice(deliveryPrice());
         displayTotalPrice(totalPrice());
     });
-    document.querySelector('#order_form').addEventListener('submit', (event) => {
-        try { if (makeOrder(event)) displayNotification('ok', 'alert-success'); }
-        catch (error) { displayNotification(error.message, 'alert-danger'); }
+    document.querySelector('#order_form').addEventListener('submit', async (event) => {
+        try {
+            const response = await postOrder(event);
+            if (response.error) displayNotification(response.error, 'alert-danger');
+            else {
+                removeFromCart();
+                window.location.href = './?order=1';
+            }
+        } catch (error) { displayNotification(error.message, 'alert-danger'); }
     });
 
-    emptyCartBanner();
+    emptyCart();
     setTimeDate();
 
     displayTotalPrice(totalPrice());

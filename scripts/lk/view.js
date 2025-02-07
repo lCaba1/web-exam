@@ -15,4 +15,6 @@ export function fillTable(data) {
 
         table.appendChild(row);
     });
+
+    return Array.from(document.querySelector('#table').children);
 }
