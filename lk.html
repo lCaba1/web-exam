@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ru">
+<html lang="ru" style="min-width: 390px;">
 
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
     <script src="./scripts/lk/controller.js" type="module"></script>
 </head>
 
-<body class="container-md min-vh-100 d-flex flex-column" style="min-width: 390px;">
+<body class="container-md min-vh-100 d-flex flex-column">
     <header>
         <nav class="navbar navbar-expand mb-2 mt-3">
             <div class="container-fluid d-flex gap-2 flex-wrap flex-sm-nowrap">
@@ -27,7 +27,7 @@
 
                 <div class="navbar-nav">
                     <a class="nav-link" href="./"><i class="bi bi-list-task h1"></i></a>
-                    <a class="nav-link" href="./cart.html"><i class="bi bi-basket2-fill h1"></i></a>
+                    <a class="nav-link pe-0" href="./cart.html"><i class="bi bi-basket2-fill h1"></i></a>
                 </div>
             </div>
         </nav>
@@ -52,42 +52,289 @@
 
             <table class="table border">
                 <thead>
-                    <tr>
+                    <tr class="text-center align-middle">
                         <th scope="col">&#8470;</th>
-                        <th scope="col">Дата оформления</th>
-                        <th scope="col">Состав заказа</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Дата оформления</th>
+                        <th scope="col" class="d-none d-md-table-cell">Состав заказа</th>
                         <th scope="col">Стоимость</th>
                         <th scope="col">Доставка</th>
-                        <th scope="col"></th>
+                        <th scope="col">Действия</th>
                     </tr>
                 </thead>
 
-                <tbody id="table">
+                <tbody id="table" class="text-center align-middle">
                     <!-- template -->
                 </tbody>
 
                 <template id="order_template">
                     <tr>
                         <th class="js_number" scope="row"></th>
-                        <td class="js_create"></td>
-                        <td class="js_sostav"></td>
+                        <td class="js_create d-none d-sm-table-cell"></td>
+                        <td class="js_sostav d-none d-md-table-cell"></td>
                         <td class="js_price"></td>
                         <td class="js_delivery"></td>
 
-                        <td class="d-flex js_edit">
-                            <button class="btn js_view"><i class="bi bi-eye-fill"></i></button>
-                            <button class="btn js_edit"><i class="bi bi-pencil-fill"></i></button>
-                            <button class="btn js_delete"><i class="bi bi-trash-fill"></i></button>
+                        <td class="js_meta">
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn js_view p-0 ps-2 pe-2" data-bs-toggle="modal"
+                                    data-bs-target="#modal_view">
+                                    <i class="bi bi-eye-fill"></i>
+                                </button>
+
+                                <button type="button" class="btn js_edit p-0 ps-2 pe-2" data-bs-toggle="modal"
+                                    data-bs-target="#modal_edit">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </button>
+
+                                <button type="button" class="btn js_delete p-0 ps-2 pe-2" data-bs-toggle="modal"
+                                    data-bs-target="#modal_delete">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </template>
             </table>
+
+
+
         </section>
     </main>
 
     <footer class="container-fluid pt-4 mb-3">
         <p class="text-center text-sm-start">&#169; 2025 MOSCOW POLYTECH STORE</p>
     </footer>
+
+
+
+    <div class="modal fade p-0" id="modal_view" tabindex="-1">
+        <div class="modal-dialog modal-md modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header p-1 ps-2 pe-2">
+                    <p class="modal-title">Просмотр заказа</p>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row row-cols-2">
+                            <div class="col">
+                                <p><strong>Дата оформления</strong></p>
+                            </div>
+
+                            <div id="created_at" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Имя</strong></p>
+                            </div>
+
+                            <div id="full_name" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Номер телефона</strong></p>
+                            </div>
+
+                            <div id="phone" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Email</strong></p>
+                            </div>
+
+                            <div id="email" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Адрес доставки</strong></p>
+                            </div>
+
+                            <div id="delivery_address" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Дата доставки</strong></p>
+                            </div>
+
+                            <div id="delivery_date" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Время доставки</strong></p>
+                            </div>
+
+                            <div id="delivery_interval" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Состав заказа</strong></p>
+                            </div>
+
+                            <div id="good_names" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Стоимость</strong></p>
+                            </div>
+
+                            <div id="total_price" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Комментарий</strong></p>
+                            </div>
+
+                            <div id="comment" class="col">
+                                <p class="text-break"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary w-100" data-bs-dismiss="modal"
+                            id="modal_view_submit">Ок</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade p-0" id="modal_edit" tabindex="-1">
+        <div class="modal-dialog modal-md modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header p-1 ps-2 pe-2">
+                    <p class="modal-title">Просмотр заказа</p>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row row-cols-2">
+                            <div class="col">
+                                <p><strong>Дата оформления</strong></p>
+                            </div>
+
+                            <div id="edit_created_at" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Имя</strong></p>
+                            </div>
+
+                            <div id="edit_full_name" class="col">
+                                <input type="text">
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Номер телефона</strong></p>
+                            </div>
+
+                            <div id="edit_phone" class="col">
+                                <input type="tel">
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Email</strong></p>
+                            </div>
+
+                            <div id="edit_email" class="col">
+                                <input type="email">
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Адрес доставки</strong></p>
+                            </div>
+
+                            <div id="edit_delivery_address" class="col">
+                                <input type="text">
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Дата доставки</strong></p>
+                            </div>
+
+                            <div id="edit_delivery_date" class="col">
+                                <input type="date">
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Время доставки</strong></p>
+                            </div>
+
+                            <div id="edit_delivery_interval" class="col">
+                                <select name="" id=""></select>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Состав заказа</strong></p>
+                            </div>
+
+                            <div id="edit_good_names" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Стоимость</strong></p>
+                            </div>
+
+                            <div id="edit_total_price" class="col">
+                                <p class="text-break"></p>
+                            </div>
+
+                            <div class="col">
+                                <p><strong>Комментарий</strong></p>
+                            </div>
+
+                            <div id="edit_comment" class="col">
+                                <textarea name="" id=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary w-100" data-bs-dismiss="modal"
+                            id="modal_edit_submit">Ок</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade p-0" id="modal_delete" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header p-1 ps-2 pe-2">
+                    <p class="modal-title">Удаление заказа</p>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="text-center">Вы уверены, что хотите удалить заказ?</p>
+
+                    <div class="d-flex gap-3">
+                        <button type="button" class="btn btn-outline-secondary w-100"
+                            data-bs-dismiss="modal">Нет</button>
+                        <button type="button" class="btn btn-outline-secondary w-100" data-bs-dismiss="modal"
+                            id="modal_delete_submit">Да</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
 
 </html>

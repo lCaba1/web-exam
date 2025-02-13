@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ru">
+<html lang="ru" style="min-width: 390px;">
 
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
     <script src="./scripts/index/controller.js" type="module"></script>
 </head>
 
-<body class="container-md min-vh-100 d-flex flex-column" style="min-width: 390px;">
+<body class="container-md min-vh-100 d-flex flex-column">
     <header>
         <nav class="navbar navbar-expand mb-2 mt-3">
             <div class="container-fluid d-flex gap-2 flex-wrap flex-sm-nowrap">
@@ -31,8 +31,8 @@
                 </div>
 
                 <form class="d-flex flex-grow-1 flex-sm-grow-0" id="search_form">
-                    <input id="search_input" class="form-control me-1" type="search" placeholder="Введите запрос"
-                        name="search">
+                    <input id="search_input" class="form-control me-1 focus-ring focus-ring-secondary border"
+                        type="search" placeholder="Введите запрос" name="search">
                     <button class="btn btn-outline-success" type="submit">Найти</button>
                 </form>
             </div>
@@ -65,7 +65,8 @@
 
                     <template id="categoty-template">
                         <div class="form-check">
-                            <input class="form-check-input js_category_input" type="checkbox" name="category">
+                            <input class="form-check-input js_category_input focus-ring focus-ring-secondary border"
+                                type="checkbox" name="category">
                             <label class="form-check-label js_category_label"></label>
                         </div>
                     </template>
@@ -78,18 +79,19 @@
                         <div class="d-flex gap-1 justify-content-between mb-2">
                             <div class="flex-grow-1">
                                 <label class="form-label" for="min_price">От:</label>
-                                <input id="min_price" class="form-control" type="number" name="from" min="0"
-                                    max="1000000">
+                                <input id="min_price" class="form-control focus-ring focus-ring-secondary border"
+                                    type="number" name="from" min="0" max="1000000">
                             </div>
                             <div class="flex-grow-1">
                                 <label class="form-label" for="max_price">До:</label>
-                                <input id="max_price" class="form-control" type="number" name="to" min="0"
-                                    max="1000000">
+                                <input id="max_price" class="form-control focus-ring focus-ring-secondary border"
+                                    type="number" name="to" min="0" max="1000000">
                             </div>
                         </div>
 
                         <div class="form-check">
-                            <input id="discount" class="form-check-input" type="checkbox" name="discount">
+                            <input id="discount" class="form-check-input focus-ring focus-ring-secondary border"
+                                type="checkbox" name="discount">
                             <label class="form-check-label" for="discount">Только товары со скидкой</label>
                         </div>
                     </fieldset>
@@ -107,7 +109,8 @@
                         <h2 class="align-self-center">Каталог</h2>
 
                         <form id="sort_form">
-                            <select id="sort_select" class="form-select mb-2" name="type">
+                            <select id="sort_select" class="form-select mb-2 focus-ring focus-ring-secondary border"
+                                name="type">
                                 <option selected value="rating_desc">По убыванию рейтинга</option>
                                 <option value="rating_asc">По возрастанию рейтинга</option>
                                 <option value="price_desc">По убыванию цены</option>

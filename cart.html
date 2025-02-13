@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ru">
+<html lang="ru" style="min-width: 390px;">
 
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
     <script src="./scripts/cart/controller.js" type="module"></script>
 </head>
 
-<body class="container-md min-vh-100 d-flex flex-column" style="min-width: 390px;">
+<body class="container-md min-vh-100 d-flex flex-column">
     <header>
         <nav class="navbar navbar-expand mb-2 mt-3">
             <div class="container-fluid d-flex gap-2 flex-wrap flex-sm-nowrap">
@@ -105,24 +105,25 @@
                 <fieldset class="col d-flex flex-column gap-2">
                     <div>
                         <label for="name" class="form-label">Имя</label>
-                        <input type="text" id="name" class="form-control" placeholder="Иван Иванов" name="full_name"
-                            required>
+                        <input type="text" id="name" class="form-control focus-ring focus-ring-success border"
+                            placeholder="Иван Иванов" name="full_name" required>
                     </div>
 
                     <div>
                         <label for="phone" class="form-label">Номер телефона</label>
-                        <input type="tel" id="phone" class="form-control" placeholder="+74952230523" name="phone"
-                            required>
+                        <input type="tel" id="phone" class="form-control focus-ring focus-ring-success border"
+                            placeholder="+74952230523" name="phone" required>
                     </div>
 
                     <div>
                         <label for="mail" class="form-label">Email</label>
-                        <input type="email" id="mail" class="form-control" placeholder="example@mospolytech.ru"
-                            name="email" required>
+                        <input type="email" id="mail" class="form-control focus-ring focus-ring-success border"
+                            placeholder="example@mospolytech.ru" name="email" required>
                     </div>
 
                     <div class="form-check mb-0">
-                        <input class="form-check-input" type="checkbox" id="subscribe" name="subscribe">
+                        <input class="form-check-input focus-ring focus-ring-secondary border" type="checkbox"
+                            id="subscribe" name="subscribe">
                         <label class="form-check-label" for="subscribe">Подписаться на рассылку</label>
                     </div>
                 </fieldset>
@@ -130,18 +131,20 @@
                 <fieldset class="col d-flex flex-column gap-2">
                     <div>
                         <label for="address" class="form-label">Адрес доставки</label>
-                        <input type="text" id="address" class="form-control" placeholder="ул. Большая Семёновская, 38"
-                            name="delivery_address" required>
+                        <input type="text" id="address" class="form-control focus-ring focus-ring-success border"
+                            placeholder="ул. Большая Семёновская, 38" name="delivery_address" required>
                     </div>
 
                     <div>
                         <label for="date" class="form-label">Дата доставки</label>
-                        <input type="date" id="date" class="form-control" name="delivery_date" required>
+                        <input type="date" id="date" class="form-control focus-ring focus-ring-success border"
+                            name="delivery_date" required>
                     </div>
 
                     <div>
                         <label for="time">Временной интервал доставки</label>
-                        <select id="time" class="form-select mt-2 mb-1" name="delivery_interval" required>
+                        <select id="time" class="form-select mt-2 mb-1 focus-ring focus-ring-success border"
+                            name="delivery_interval" required>
                             <option value="08:00-12:00">08:00-12:00</option>
                             <option value="12:00-14:00">12:00-14:00</option>
                             <option value="14:00-18:00">14:00-18:00</option>
@@ -153,8 +156,8 @@
                 <fieldset class="col d-flex flex-column gap-2">
                     <div>
                         <label for="comment" class="form-label">Комментарий</label>
-                        <textarea id="comment" class="form-control" rows="5" style="resize: none;"
-                            name="comment"></textarea>
+                        <textarea id="comment" class="form-control focus-ring focus-ring-secondary border" rows="5"
+                            style="resize: none;" name="comment"></textarea>
                     </div>
                 </fieldset>
 
