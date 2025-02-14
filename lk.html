@@ -26,8 +26,8 @@
                 <img class="navbar-brand" src="./assets/logo.png" alt="logo" height="48">
 
                 <div class="navbar-nav">
-                    <a class="nav-link" href="./"><i class="bi bi-list-task h1"></i></a>
-                    <a class="nav-link pe-0" href="./cart.html"><i class="bi bi-basket2-fill h1"></i></a>
+                    <a class="nav-link shadow-none" href="./"><i class="bi bi-list-task h1"></i></a>
+                    <a class="nav-link pe-0 shadow-none" href="./cart.html"><i class="bi bi-basket2-fill h1"></i></a>
                 </div>
             </div>
         </nav>
@@ -40,7 +40,7 @@
     <template id="alert-template">
         <div class="alert alert-dismissible fade mb-4 js_alert_color">
             <span class="js_alert_message"></span>
-            <button type="button" class="btn-close js_close_alert" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close js_close_alert shadow-none" data-bs-dismiss="alert"></button>
         </div>
     </template>
 
@@ -122,87 +122,87 @@
                                 <p><strong>Дата оформления</strong></p>
                             </div>
 
-                            <div id="created_at" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="created_at" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Имя</strong></p>
                             </div>
 
-                            <div id="full_name" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="full_name" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Номер телефона</strong></p>
                             </div>
 
-                            <div id="phone" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="phone" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Email</strong></p>
                             </div>
 
-                            <div id="email" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="email" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Адрес доставки</strong></p>
                             </div>
 
-                            <div id="delivery_address" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="delivery_address" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Дата доставки</strong></p>
                             </div>
 
-                            <div id="delivery_date" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="delivery_date" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Время доставки</strong></p>
                             </div>
 
-                            <div id="delivery_interval" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="delivery_interval" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Состав заказа</strong></p>
                             </div>
 
-                            <div id="good_names" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="good_names" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Стоимость</strong></p>
                             </div>
 
-                            <div id="total_price" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="total_price" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Комментарий</strong></p>
                             </div>
 
-                            <div id="comment" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="comment" class="text-break"></p>
                             </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <button type="button" class="btn btn-outline-secondary w-100" data-bs-dismiss="modal"
-                            id="modal_view_submit">Ок</button>
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary w-100" data-bs-dismiss="modal"
+                                id="modal_view_submit">Ок</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -214,98 +214,133 @@
             <div class="modal-content">
                 <div class="modal-header p-1 ps-2 pe-2">
                     <p class="modal-title">Просмотр заказа</p>
-                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+                    <button type="button" id="close_edit_modal" class="btn-close shadow-none"
+                        data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
-                    <div class="container-fluid">
+                    <div id="modal_notifications" class="container-md">
+                        <!-- template -->
+                    </div>
+
+                    <form id="edit_form" class="container-fluid">
                         <div class="row row-cols-2">
                             <div class="col">
                                 <p><strong>Дата оформления</strong></p>
                             </div>
 
-                            <div id="edit_created_at" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="edit_created_at" class="text-break"></p>
                             </div>
 
                             <div class="col">
-                                <p><strong>Имя</strong></p>
-                            </div>
-
-                            <div id="edit_full_name" class="col">
-                                <input type="text">
-                            </div>
-
-                            <div class="col">
-                                <p><strong>Номер телефона</strong></p>
-                            </div>
-
-                            <div id="edit_phone" class="col">
-                                <input type="tel">
+                                <label for="edit_full_name">
+                                    <p><strong>Имя</strong></p>
+                                </label>
                             </div>
 
                             <div class="col">
-                                <p><strong>Email</strong></p>
-                            </div>
-
-                            <div id="edit_email" class="col">
-                                <input type="email">
+                                <input id="edit_full_name" type="text" name="full_name" required
+                                    class="form-control focus-ring focus-ring-success border mb-3">
                             </div>
 
                             <div class="col">
-                                <p><strong>Адрес доставки</strong></p>
-                            </div>
-
-                            <div id="edit_delivery_address" class="col">
-                                <input type="text">
-                            </div>
-
-                            <div class="col">
-                                <p><strong>Дата доставки</strong></p>
-                            </div>
-
-                            <div id="edit_delivery_date" class="col">
-                                <input type="date">
+                                <label for="edit_phone">
+                                    <p><strong>Номер телефона</strong></p>
+                                </label>
                             </div>
 
                             <div class="col">
-                                <p><strong>Время доставки</strong></p>
+                                <input id="edit_phone" type="tel" name="phone" required
+                                    class="form-control focus-ring focus-ring-success border mb-3">
                             </div>
 
-                            <div id="edit_delivery_interval" class="col">
-                                <select name="" id=""></select>
+                            <div class="col">
+                                <label for="edit_email">
+                                    <p><strong>Email</strong></p>
+                                </label>
+                            </div>
+
+                            <div class="col">
+                                <input id="edit_email" type="email" name="email" required
+                                    class="form-control focus-ring focus-ring-success border mb-3">
+                            </div>
+
+                            <div class="col">
+                                <label for="edit_delivery_address">
+                                    <p><strong>Адрес доставки</strong></p>
+                                </label>
+                            </div>
+
+                            <div class="col">
+                                <input id="edit_delivery_address" type="text" name="delivery_address" required
+                                    class="form-control focus-ring focus-ring-success border mb-3">
+                            </div>
+
+                            <div class="col">
+                                <label for="edit_delivery_date">
+                                    <p><strong>Дата доставки</strong></p>
+                                </label>
+                            </div>
+
+                            <div class="col">
+                                <input id="edit_delivery_date" type="date" name="delivery_date" required
+                                    class="form-control focus-ring focus-ring-success border mb-3">
+                            </div>
+
+                            <div class="col">
+                                <label for="edit_delivery_interval">
+                                    <p><strong>Время доставки</strong></p>
+                                </label>
+                            </div>
+
+                            <div class="col">
+                                <select id="edit_delivery_interval" name="delivery_interval" required
+                                    class="form-select focus-ring focus-ring-success border mb-3">
+                                    <option value="08:00-12:00">08:00-12:00</option>
+                                    <option value="12:00-14:00">12:00-14:00</option>
+                                    <option value="14:00-18:00">14:00-18:00</option>
+                                    <option value="18:00-22:00">18:00-22:00</option>
+                                </select>
                             </div>
 
                             <div class="col">
                                 <p><strong>Состав заказа</strong></p>
                             </div>
 
-                            <div id="edit_good_names" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p id="edit_good_names" class="text-break"></p>
                             </div>
 
                             <div class="col">
                                 <p><strong>Стоимость</strong></p>
                             </div>
 
-                            <div id="edit_total_price" class="col">
-                                <p class="text-break"></p>
+                            <div class="col">
+                                <p><span id="edit_total_price" class="text-break"></span> &#x20bd;</p>
                             </div>
 
                             <div class="col">
-                                <p><strong>Комментарий</strong></p>
+                                <label for="edit_comment">
+                                    <p><strong>Комментарий</strong></p>
+                                </label>
                             </div>
 
-                            <div id="edit_comment" class="col">
-                                <textarea name="" id=""></textarea>
+                            <div class="col">
+                                <textarea id="edit_comment" name="comment"
+                                    class="form-control focus-ring focus-ring-secondary border mb-3" rows="5"
+                                    style="resize: none;"></textarea>
                             </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <button type="button" class="btn btn-outline-secondary w-100" data-bs-dismiss="modal"
-                            id="modal_edit_submit">Ок</button>
-                    </div>
+                        <div class="d-flex gap-4">
+                            <button type="button" class="btn btn-outline-secondary w-100"
+                                data-bs-dismiss="modal">Отмена</button>
+
+                            <button type="submit" class="btn btn-outline-success w-100"
+                                id="modal_edit_submit">Сохранить</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -325,7 +360,7 @@
                     <div class="d-flex gap-3">
                         <button type="button" class="btn btn-outline-secondary w-100"
                             data-bs-dismiss="modal">Нет</button>
-                        <button type="button" class="btn btn-outline-secondary w-100" data-bs-dismiss="modal"
+                        <button type="button" class="btn btn-outline-danger w-100" data-bs-dismiss="modal"
                             id="modal_delete_submit">Да</button>
                     </div>
                 </div>

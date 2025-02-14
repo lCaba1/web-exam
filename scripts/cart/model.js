@@ -58,8 +58,8 @@ export async function postOrder(event) {
     else if (valid.getHours() >= 12) valid.setHours(12);
     else valid.setHours(8);
 
-    if (date == valid.toISOString().split('T')[0] && time < valid.getHours()) throw new Error('time problem');
-    if (date < valid.toISOString().split('T')[0]) throw new Error('date problem');
+    if (date == valid.toISOString().split('T')[0] && time < valid.getHours()) throw new Error('Выберите корректное время!');
+    if (date < valid.toISOString().split('T')[0]) throw new Error('Выберите корректную дату!');
 
     if (form.get('subscribe')) form.set('subscribe', 1);
     else form.set('subscribe', 0);

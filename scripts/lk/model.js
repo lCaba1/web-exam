@@ -13,10 +13,10 @@ export async function deleteOrder(id) {
     await fetch(request, { method: 'DELETE' });
 }
 
-async function createMeta(orders) {
+export async function createMeta(orders) {
     await Promise.all(
         orders.map(async item => {
-            if (!item.comment) item.comment = '';
+            if (!item.comment || item.comment == 'null') item.comment = '';
 
             let to_format = new Date(item.created_at);
             const day = String(to_format.getDate()).padStart(2, '0');
@@ -43,10 +43,12 @@ async function createMeta(orders) {
                 item.total_price += data.discount_price ?? data.actual_price;
             });
 
+            item.delivery_price = 0;
             if (new Date(item.delivery_date).getDay() == 0 ||
-                new Date(item.delivery_date).getDay() == 6) item.total_price += 500;
-            else if (item.delivery_interval == '18:00-22:00') item.total_price += 400;
-            else item.total_price += 200;
+                new Date(item.delivery_date).getDay() == 6) item.delivery_price += 500;
+            else if (item.delivery_interval == '18:00-22:00') item.delivery_price += 400;
+            else item.delivery_price += 200;
+            item.total_price += item.delivery_price;
 
             delete item.student_id;
             delete item.subscribe;
@@ -54,4 +56,59 @@ async function createMeta(orders) {
         })
     );
     return orders;
+}
+
+export async function putOrder(event, id) {
+    event.preventDefault();
+
+    const form = new FormData(event.target);
+
+    const date = form.get('delivery_date');
+    form.set('delivery_date', new Date(date).toLocaleDateString('ru-RU'));
+
+    const time = parseInt(document.querySelector('#edit_delivery_interval').value.split(':')[0], 10);
+
+    let valid = new Date();
+    if (valid.getHours() >= 22) {
+        valid.setDate(valid.getDate() + 1);
+        valid.setHours(8);
+    } else if (valid.getHours() >= 18) valid.setHours(18);
+    else if (valid.getHours() >= 14) valid.setHours(14);
+    else if (valid.getHours() >= 12) valid.setHours(12);
+    else valid.setHours(8);
+
+    if (date == valid.toISOString().split('T')[0] && time < valid.getHours()) throw new Error('Выберите корректное время!');
+    if (date < valid.toISOString().split('T')[0]) throw new Error('Выберите корректную дату!');
+
+    if (!form.get('comment')) form.set('comment', null);
+
+    return await (await fetch(api_url + order_path + '/' + id + auth, {
+        method: "PUT",
+        body: form
+    })).json();
+}
+
+export function modalPriceUpdate() {
+    const last_delivery_day = new Date(document.querySelector('#modal_edit').dataset.delivery_date);
+    const last_delivery_time = document.querySelector('#modal_edit').dataset.delivery_interval;
+    const new_delivery_day = new Date(document.querySelector('#edit_delivery_date').value);
+    const new_delivery_time = document.querySelector('#edit_delivery_interval').value;
+    let total_price = document.querySelector('#edit_total_price');
+
+    if (last_delivery_day.getDay() == 0 || last_delivery_day.getDay() == 6)
+        total_price.textContent = Number(total_price.textContent) - 500;
+    else if (last_delivery_time == '18:00-22:00')
+        total_price.textContent = Number(total_price.textContent) - 400;
+    else
+        total_price.textContent = Number(total_price.textContent) - 200;
+
+    if (new_delivery_day.getDay() == 0 || new_delivery_day.getDay() == 6)
+        total_price.textContent = Number(total_price.textContent) + 500;
+    else if (new_delivery_time == '18:00-22:00')
+        total_price.textContent = Number(total_price.textContent) + 400;
+    else
+        total_price.textContent = Number(total_price.textContent) + 200;
+
+    document.querySelector('#modal_edit').dataset.delivery_date = new_delivery_day;
+    document.querySelector('#modal_edit').dataset.delivery_interval = new_delivery_time;
 }
