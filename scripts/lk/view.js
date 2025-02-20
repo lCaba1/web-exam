@@ -103,7 +103,7 @@ export function displayNotification(message, color) {
         if (document.body.classList.contains('modal-open'))
             document.querySelector('#modal_notifications').scrollIntoView();
         else
-            document.querySelector('#notifications').scrollIntoView();
+            document.querySelector('body').scrollIntoView();
     }
 }
 
@@ -132,4 +132,15 @@ export function fillRow(meta) {
     row.querySelector('.js_price').textContent = meta.dataset.total_price + ' \u20BD';
     row.querySelector('.js_delivery').textContent =
         new Date(meta.dataset.delivery_date).toLocaleDateString('ru-RU') + ' ' + meta.dataset.delivery_interval;
+}
+
+export function emptyLk() {
+    if (document.querySelector('#table').children.length) {
+        document.querySelector('#empty_lk_banner').setAttribute('hidden', true);
+        document.querySelector('table').removeAttribute('hidden');
+    }
+    else {
+        document.querySelector('#empty_lk_banner').removeAttribute('hidden');
+        document.querySelector('table').setAttribute('hidden', true);
+    }
 }

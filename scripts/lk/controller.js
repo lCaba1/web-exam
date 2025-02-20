@@ -1,11 +1,39 @@
-import { createMeta, deleteOrder, getOrders, modalPriceUpdate, putOrder } from "./model.js";
-import { cleanOrder, viewModal, fillMeta, editModal, displayNotification, updateRow, fillRow } from "./view.js";
+import {
+    createMeta,
+    deleteOrder,
+    expiredOrder,
+    getOrders,
+    modalPriceUpdate,
+    putOrder
+} from "./model.js";
+
+import {
+    cleanOrder,
+    viewModal,
+    fillMeta,
+    editModal,
+    displayNotification,
+    updateRow,
+    fillRow,
+    emptyLk
+} from "./view.js";
 
 (async () => {
     fillMeta(await getOrders());
     Array.from(document.querySelectorAll('.js_meta')).forEach(row => {
         fillRow(row);
     });
+
+    await Promise.all(
+        Array.from(document.querySelector('#table').children).map(async order => {
+            if (expiredOrder(order)) {
+                await deleteOrder(order.querySelector('.js_meta').dataset.id);
+                cleanOrder(order.querySelector('.js_meta').dataset.id);
+            }
+        })
+    );
+
+    emptyLk();
 
     document.querySelector('#modal_view').addEventListener('show.bs.modal', (event) => {
         viewModal(event.relatedTarget.closest('.js_meta').dataset.id);
@@ -39,5 +67,7 @@ import { cleanOrder, viewModal, fillMeta, editModal, displayNotification, update
     document.querySelector('#modal_delete_submit').addEventListener('click', async function () {
         await deleteOrder(this.closest('#modal_delete').dataset.processing_id);
         cleanOrder(this.closest('#modal_delete').dataset.processing_id);
+        setTimeout(function () { displayNotification('Заказ успешно удалён', 'alert-success') }, 350);
+        emptyLk();
     });
 })();

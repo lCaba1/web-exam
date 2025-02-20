@@ -112,3 +112,12 @@ export function modalPriceUpdate() {
     document.querySelector('#modal_edit').dataset.delivery_date = new_delivery_day;
     document.querySelector('#modal_edit').dataset.delivery_interval = new_delivery_time;
 }
+
+export function expiredOrder(order) {
+    if (new Date().getDate() > new Date(order.querySelector('.js_meta').dataset.delivery_date).getDate() ||
+        new Date().getDate() == new Date(order.querySelector('.js_meta').dataset.delivery_date).getDate() &&
+        new Date().getHours() >= new Date(order.querySelector('.js_meta').dataset.delivery_date).getDate()) {
+        return true;
+    }
+    return false;
+}

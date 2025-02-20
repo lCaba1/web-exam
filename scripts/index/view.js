@@ -78,7 +78,7 @@ export function displayNotification(message, color) {
         if (notifications.children.length) notifications.querySelector('.js_close_alert').click();
     }, 10000);
 
-    if (color == 'alert-danger') document.querySelector('#notifications').scrollIntoView();
+    if (color == 'alert-danger') document.querySelector('body').scrollIntoView();
 }
 
 export function hideFiltered(data) {
