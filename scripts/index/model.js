@@ -4,6 +4,8 @@ const auth = '?api_key=12fb475f-4ad1-4629-8a9b-1dbfd9e253dd';
 const page_param = '&page=';
 const per_page_param = '&per_page=';
 const sort_order_param = '&sort_order=';
+const autocomplete_path = '/exam-2024-1/api/autocomplete';
+const query_param = '&query=';
 
 let current_page;
 
@@ -100,3 +102,10 @@ export function submitFilter(event) {
 
     return filtered;
 }*/
+
+export async function getSearch(event) {
+    event.preventDefault();
+    const request = api_url + autocomplete_path + auth + query_param + event.target.value;
+    if (event.target.value.trim()) return await (await fetch(request, { method: 'GET' })).json();
+    else return [];
+}

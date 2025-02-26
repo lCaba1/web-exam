@@ -116,7 +116,7 @@ export function modalPriceUpdate() {
 export function expiredOrder(order) {
     if (new Date().getDate() > new Date(order.querySelector('.js_meta').dataset.delivery_date).getDate() ||
         new Date().getDate() == new Date(order.querySelector('.js_meta').dataset.delivery_date).getDate() &&
-        new Date().getHours() >= new Date(order.querySelector('.js_meta').dataset.delivery_date).getDate()) {
+        new Date().getHours() >= parseInt(order.querySelector('.js_meta').dataset.delivery_interval.split('-')[1], 10)) {
         return true;
     }
     return false;

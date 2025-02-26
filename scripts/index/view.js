@@ -97,3 +97,23 @@ export function cleanCatalog(item) {
 export function cleanCategories() {
     document.querySelector('#categories').replaceChildren();
 }
+
+export function fillDropdown(list) {
+    document.querySelector('#suggestions').replaceChildren();
+
+    document.querySelector('.dropdown-menu').removeAttribute('hidden');
+    if (!list.length) document.querySelector('.dropdown-menu').setAttribute('hidden', true);
+
+    const search_str = document.querySelector('#search_input').value.trim().split(' ').slice(0, -1).join(' ');
+
+    for (let i = 0; i < list.length; i++) {
+        const suggestion = document.querySelector('#dropdown-template').content.cloneNode(true);
+        suggestion.querySelector('.dropdown-item').textContent = search_str + ' ' + list[i];
+        document.querySelector('#suggestions').appendChild(suggestion);
+        if (i == 8) break;
+    };
+}
+
+export function fillSearch(event) {
+    document.querySelector('#search_input').value = event.target.textContent;
+}

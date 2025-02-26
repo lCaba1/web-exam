@@ -6,6 +6,8 @@ import {
     displayCategories,
     cleanCategories,
     hideFiltered,
+    fillDropdown,
+    fillSearch
 } from "./view.js";
 
 import {
@@ -14,7 +16,8 @@ import {
     filter,
     findCategories,
     minMaxPrice,
-    submitFilter
+    submitFilter,
+    getSearch
 } from "./model.js";
 
 async function updateCatalog() {
@@ -53,6 +56,13 @@ document.querySelector('#filter').addEventListener('submit', (event) => {
     hideFiltered(filter());
 });
 
+document.querySelector('#search_input').addEventListener('input', async function (event) {
+    fillDropdown(await getSearch(event));
+    Array.from(document.querySelector('#suggestions').children).forEach(item => {
+        item.addEventListener('click', (event) => fillSearch(event))
+    });
+});
+
 document.querySelector('#download_button').click();
 
 window.onload = function () {
@@ -64,8 +74,3 @@ window.onload = function () {
         history.replaceState(null, "", new_url);
     }
 }
-
-/*(async () => {
-    document.querySelector('#js_search').addEventListener('submit',
-        function (event) { displayHide(search(event)) });
-})();*/
