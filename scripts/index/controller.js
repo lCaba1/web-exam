@@ -17,7 +17,9 @@ import {
     findCategories,
     minMaxPrice,
     submitFilter,
-    getSearch
+    getSearch,
+    search,
+    submitSearch
 } from "./model.js";
 
 async function updateCatalog() {
@@ -41,6 +43,7 @@ async function updateCatalog() {
 document.querySelector('#download_button').addEventListener('click', async () => {
     await updateCatalog();
     hideFiltered(filter());
+    hideFiltered(search())
 });
 
 document.querySelector('#sort_form').addEventListener('change', async () => {
@@ -59,8 +62,21 @@ document.querySelector('#filter').addEventListener('submit', (event) => {
 document.querySelector('#search_input').addEventListener('input', async function (event) {
     fillDropdown(await getSearch(event));
     Array.from(document.querySelector('#suggestions').children).forEach(item => {
-        item.addEventListener('click', (event) => fillSearch(event))
+        item.addEventListener('click', (event) => {
+            fillSearch(event);
+            document.querySelector('#search_input').focus();
+        });
     });
+    new bootstrap.Dropdown(event.target).show();
+});
+
+document.querySelector('#search_input').addEventListener('click', (event) => {
+    new bootstrap.Dropdown(event.target).show();
+});
+
+document.querySelector('#search_form').addEventListener('submit', (event) => {
+    submitSearch(event);
+    hideFiltered(search());
 });
 
 document.querySelector('#download_button').click();

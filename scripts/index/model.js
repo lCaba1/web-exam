@@ -89,9 +89,23 @@ export function submitFilter(event) {
     formState.discount = new FormData(document.querySelector('#filter')).get('discount');
 }
 
-/*export function search(event) {
+export async function getSearch(event) {
     event.preventDefault();
-    const substr = document.querySelector('#js_search_input').value.toLowerCase();
+    const request = api_url + autocomplete_path + auth + query_param + event.target.value;
+    if (event.target.value.trim()) return await (await fetch(request, { method: 'GET' })).json();
+    else return [];
+}
+
+let search_str = '';
+
+export function submitSearch(event) {
+    event.preventDefault();
+    search_str = new FormData(event.target).get('search');
+    console.log(search_str);
+}
+
+export function search() {
+    const substr = search_str.toLowerCase();
     const filtered = [];
 
     Array.from(document.querySelector('#catalog').children).forEach(item => {
@@ -101,11 +115,4 @@ export function submitFilter(event) {
     });
 
     return filtered;
-}*/
-
-export async function getSearch(event) {
-    event.preventDefault();
-    const request = api_url + autocomplete_path + auth + query_param + event.target.value;
-    if (event.target.value.trim()) return await (await fetch(request, { method: 'GET' })).json();
-    else return [];
 }

@@ -90,7 +90,7 @@ export function hideFiltered(data) {
     });
 }
 
-export function cleanCatalog(item) {
+export function cleanCatalog() {
     document.querySelector('#catalog').replaceChildren();
 }
 
@@ -108,7 +108,7 @@ export function fillDropdown(list) {
 
     for (let i = 0; i < list.length; i++) {
         const suggestion = document.querySelector('#dropdown-template').content.cloneNode(true);
-        suggestion.querySelector('.dropdown-item').textContent = search_str + ' ' + list[i];
+        suggestion.querySelector('.dropdown-item').textContent = search_str + (search_str ? ' ' : '') + list[i];
         document.querySelector('#suggestions').appendChild(suggestion);
         if (i == 8) break;
     };
