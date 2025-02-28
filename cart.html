@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ru" style="min-width: 390px;">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="./styles/cart.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -50,7 +52,7 @@
                 <h2>Корзина</h2>
             </header>
 
-            <div id="empty_cart_banner" class="mt-4 mb-4">
+            <div id="empty_cart_banner" class="mt-4 mb-4" hidden>
                 <p class="h4">Корзина пуста. Перейдите в каталог, чтобы добавить товары.</p>
             </div>
 
@@ -61,14 +63,13 @@
 
             <template id="card-template">
                 <div class="col js_meta" data-main_category="" data-id="">
-                    <div class="ratio" style="--bs-aspect-ratio: 178%">
+                    <div class="ratio">
                         <div class="card d-flex flex-column overflow-hidden">
                             <img src="." alt="" class="overflow-hidden h-100 w-100 card-img-top js_image_url">
 
-                            <div class="card-body p-md-3" style="padding: 3%;">
-                                <h6 class="card-title js_name" style="overflow: hidden; text-overflow: ellipsis;
-                                height: 2.4em; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; 
-                                -webkit-box-orient: vertical; margin-bottom: 2%;"></h6>
+                            <div class="card-body p-md-3">
+                                <h6 class="card-title js_name" data-bs-toggle="tooltip" data-bs-title=""
+                                    data-bs-delay="500"></h6>
 
                                 <div class="card-text d-flex gap-1 gap-sm-2 gap-md-3 text-muted">
                                     <span class="js_rating"></span>
@@ -87,8 +88,7 @@
                                     <strong class="text-danger js_percent_off"></strong>
                                 </div>
 
-                                <button class="btn btn-secondary w-100 js_delete_button"
-                                    style="padding-top: 3%; padding-bottom: 3%; margin-top: 3%;">Удалить</button>
+                                <button class="btn btn-secondary w-100 js_delete_button">Удалить</button>
                             </div>
                         </div>
                     </div>
@@ -156,8 +156,8 @@
                 <fieldset class="col d-flex flex-column gap-2">
                     <div>
                         <label for="comment" class="form-label">Комментарий</label>
-                        <textarea id="comment" class="form-control focus-ring focus-ring-secondary border" rows="5"
-                            style="resize: none;" name="comment"></textarea>
+                        <textarea id="comment" rows="5" name="comment"
+                            class="form-control focus-ring focus-ring-secondary border"></textarea>
                     </div>
                 </fieldset>
 

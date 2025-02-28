@@ -101,7 +101,6 @@ let search_str = '';
 export function submitSearch(event) {
     event.preventDefault();
     search_str = new FormData(event.target).get('search');
-    console.log(search_str);
 }
 
 export function search() {

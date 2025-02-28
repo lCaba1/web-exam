@@ -7,7 +7,8 @@ import {
     cleanCategories,
     hideFiltered,
     fillDropdown,
-    fillSearch
+    fillSearch,
+    emptyCatalog
 } from "./view.js";
 
 import {
@@ -42,8 +43,9 @@ async function updateCatalog() {
 
 document.querySelector('#download_button').addEventListener('click', async () => {
     await updateCatalog();
-    hideFiltered(filter());
-    hideFiltered(search())
+    hideFiltered(filter().concat(search()));
+
+    emptyCatalog();
 });
 
 document.querySelector('#sort_form').addEventListener('change', async () => {
@@ -56,7 +58,9 @@ document.querySelector('#sort_form').addEventListener('change', async () => {
 
 document.querySelector('#filter').addEventListener('submit', (event) => {
     submitFilter(event);
-    hideFiltered(filter());
+    hideFiltered(filter().concat(search()));
+
+    emptyCatalog();
 });
 
 document.querySelector('#search_input').addEventListener('input', async function (event) {
@@ -76,7 +80,9 @@ document.querySelector('#search_input').addEventListener('click', (event) => {
 
 document.querySelector('#search_form').addEventListener('submit', (event) => {
     submitSearch(event);
-    hideFiltered(search());
+    hideFiltered(search().concat(filter()));
+
+    emptyCatalog();
 });
 
 document.querySelector('#download_button').click();

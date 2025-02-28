@@ -9,6 +9,8 @@ export function displayCatalog(data) {
         card.querySelector('.js_name').textContent = item.name;
         card.querySelector('.js_rating').textContent = item.rating;
 
+        card.querySelector('.js_name').setAttribute('data-bs-title', item.name);
+
         const stars = card.querySelector('.js_rating_stars').querySelectorAll('.js_star');
         for (let i = 0; i < 5; i++) {
             if (i + 1 <= item.rating)
@@ -35,6 +37,9 @@ export function displayCatalog(data) {
     } else {
         document.querySelector('#download_button').parentElement.removeAttribute('hidden');
     }
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
     return Array.from(document.querySelector('#catalog').children);
 }
@@ -116,4 +121,16 @@ export function fillDropdown(list) {
 
 export function fillSearch(event) {
     document.querySelector('#search_input').value = event.target.textContent;
+}
+
+export function emptyCatalog() {
+    document.querySelector('#empty_catalog_banner_1').setAttribute('hidden', true);
+    document.querySelector('#empty_catalog_banner_2').setAttribute('hidden', true);
+
+    if (Array.from(document.querySelectorAll('.js_meta[hidden]')).length == document.querySelector('#catalog').children.length) {
+        if (document.querySelector('#download_button').parentElement.getAttribute('hidden') == 'true')
+            document.querySelector('#empty_catalog_banner_2').removeAttribute('hidden');
+        else
+            document.querySelector('#empty_catalog_banner_1').removeAttribute('hidden');
+    }
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ru" style="min-width: 390px;">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="./styles/index.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -30,7 +32,7 @@
                     <a class="nav-link pe-0 shadow-none" href="./lk.html"><i class="bi bi-person-circle h1"></i></a>
                 </div>
 
-                <form class="d-flex flex-grow-1" style="max-width: 500px;" id="search_form">
+                <form class="d-flex flex-grow-1" id="search_form">
                     <div class="dropdown me-1 w-100">
                         <input class="form-control focus-ring focus-ring-secondary border dropdown-toggle"
                             placeholder="Введите запрос" data-bs-toggle="dropdown" data-bs-auto-close="outside"
@@ -131,20 +133,27 @@
                     </div>
                 </header>
 
+                <div id="empty_catalog_banner_1" class="mb-4" hidden>
+                    <p class="h4">Нет или еще не загружено товаров, соответствующих поиску или фильтрам.</p>
+                </div>
+
+                <div id="empty_catalog_banner_2" class="mb-4" hidden>
+                    <p class="h4">Нет товаров, соответствующих поиску или фильтрам.</p>
+                </div>
+
                 <div id="catalog" class="row row-cols-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 gy-4">
                     <!-- template -->
                 </div>
 
                 <template id="card-template">
                     <div class="col js_meta" data-main_category="" data-id="">
-                        <div class="ratio" style="--bs-aspect-ratio: 178%">
+                        <div class="ratio">
                             <div class="card d-flex flex-column overflow-hidden">
                                 <img src="." alt="" class="overflow-hidden h-100 w-100 card-img-top js_image_url">
 
-                                <div class="card-body p-md-3" style="padding: 3%;">
-                                    <h6 class="card-title js_name" style="overflow: hidden; text-overflow: ellipsis;
-                                    height: 2.4em; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; 
-                                    -webkit-box-orient: vertical; margin-bottom: 2%;"></h6>
+                                <div class="card-body p-md-3">
+                                    <h6 class="card-title js_name" data-bs-toggle="tooltip" data-bs-title=""
+                                        data-bs-delay="500"></h6>
 
                                     <div class="card-text d-flex gap-1 gap-sm-2 gap-md-3 text-muted">
                                         <span class="js_rating"></span>
@@ -163,8 +172,7 @@
                                         <strong class="text-danger js_percent_off"></strong>
                                     </div>
 
-                                    <button class="btn btn-success w-100 js_add_button"
-                                        style="padding-top: 3%; padding-bottom: 3%; margin-top: 3%;">Добавить</button>
+                                    <button class="btn btn-success w-100 js_add_button">Добавить</button>
                                 </div>
                             </div>
                         </div>

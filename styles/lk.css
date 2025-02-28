@@ -1,0 +1,7 @@
+html {
+    min-width: 390px;
+}
+
+#edit_comment {
+    resize: none;
+}

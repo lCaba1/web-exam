@@ -1,0 +1,32 @@
+html {
+    min-width: 390px;
+}
+
+#search_form {
+    max-width: 500px;
+}
+
+.ratio {
+    --bs-aspect-ratio: 178%;
+}
+
+.card-body {
+    padding: 3%;
+}
+
+.card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 2.4em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 2%;
+}
+
+#js_add_button {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    margin-top: 3%;
+}

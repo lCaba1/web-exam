@@ -9,6 +9,8 @@ export function displayCart(data) {
         card.querySelector('.js_name').textContent = item.name;
         card.querySelector('.js_rating').textContent = item.rating;
 
+        card.querySelector('.js_name').setAttribute('data-bs-title', item.name);
+
         const stars = card.querySelector('.js_rating_stars').querySelectorAll('.js_star');
         for (let i = 0; i < 5; i++) {
             if (i <= item.rating - 1)
@@ -29,6 +31,9 @@ export function displayCart(data) {
 
         document.querySelector('#cart').appendChild(card);
     });
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 }
 
 export function displayTotalPrice(price) {

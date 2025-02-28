@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ru" style="min-width: 390px;">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="./styles/lk.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -50,11 +52,11 @@
                 <h2>Заказы</h2>
             </header>
 
-            <div id="empty_lk_banner" class="mt-4 mb-4">
+            <div id="empty_lk_banner" class="mt-4 mb-4" hidden>
                 <p class="h4">Заказов нет.</p>
             </div>
 
-            <table class="table border">
+            <table class="table border" hidden>
                 <thead>
                     <tr class="text-center align-middle">
                         <th scope="col">&#8470;</th>
@@ -326,9 +328,8 @@
                             </div>
 
                             <div class="col">
-                                <textarea id="edit_comment" name="comment"
-                                    class="form-control focus-ring focus-ring-secondary border mb-3" rows="5"
-                                    style="resize: none;"></textarea>
+                                <textarea id="edit_comment" name="comment" rows="5"
+                                    class="form-control focus-ring focus-ring-secondary border mb-3"></textarea>
                             </div>
                         </div>
 
